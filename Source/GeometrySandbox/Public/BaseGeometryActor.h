@@ -51,6 +51,7 @@ public:
 
 	void SetGeometryData(const FGeometryData& Data);
 
+	UFUNCTION(BlueprintCallable)
 	FGeometryData GetGeometryData() const;
 
 protected:
