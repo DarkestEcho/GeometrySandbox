@@ -18,22 +18,22 @@ struct FGeometryData
 {
 	GENERATED_USTRUCT_BODY()
 	
-	UPROPERTY(EditAnywhere, Category="Movement")    
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")    
 	float Amplitude = 50.f;                          
                                                     
-	UPROPERTY(EditAnywhere, Category="Movement")    
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")    
 	float Frequency = 2.f;                           
                                                     
-	UPROPERTY(EditAnywhere, Category="Movement")    
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")    
 	EMovementType MoveType = EMovementType::Static;
 
-	UPROPERTY(EditAnywhere, Category="Design")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Design")
 	FLinearColor Color = FLinearColor::Black;
 
-	UPROPERTY(EditAnywhere, Category="Design")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Design")
 	float TimerRate = 3.f;
 
-	UPROPERTY(EditAnywhere, Category="Design")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Design")
 	int32 MaxTimerCount = 5;
 };
 
@@ -50,6 +50,8 @@ public:
 	UStaticMeshComponent* BaseMesh;
 
 	void SetGeometryData(const FGeometryData& Data);
+
+	FGeometryData GetGeometryData() const;
 
 protected:
 	// Called when the game starts or when spawned

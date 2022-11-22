@@ -22,6 +22,11 @@ void ABaseGeometryActor::SetGeometryData(const FGeometryData& Data)
 	GeometryData = Data;
 }
 
+FGeometryData ABaseGeometryActor::GetGeometryData() const
+{
+	return GeometryData;
+}
+
 // Called when the game starts or when spawned
 void ABaseGeometryActor::BeginPlay()
 {
