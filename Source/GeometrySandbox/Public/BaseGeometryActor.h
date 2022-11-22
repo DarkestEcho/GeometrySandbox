@@ -13,10 +13,10 @@ enum class EMovementType: uint8
 	Static
 };
 
-USTRUCT()							
+USTRUCT(BlueprintType)							
 struct FGeometryData
 {
-	GENERATED_USTRUCT_BODY()
+	GENERATED_BODY()
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement")    
 	float Amplitude = 50.f;                          

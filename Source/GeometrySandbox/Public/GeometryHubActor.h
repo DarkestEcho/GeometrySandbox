@@ -7,7 +7,7 @@
 #include "GameFramework/Actor.h"
 #include "GeometryHubActor.generated.h"
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FGeometryPayload
 {
 	GENERATED_BODY()
