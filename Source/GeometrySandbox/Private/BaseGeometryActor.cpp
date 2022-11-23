@@ -38,6 +38,12 @@ void ABaseGeometryActor::BeginPlay()
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &ABaseGeometryActor::OnTimerFired, GeometryData.TimerRate, true);
 }
 
+void ABaseGeometryActor::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+	UE_LOG(LogBaseGeometry, Display, TEXT("Actor: %s is destroyed"), *GetName());
+}
+
 void ABaseGeometryActor::HandleMovement()
 {
 	switch (GeometryData.MoveType)
@@ -74,11 +80,14 @@ void ABaseGeometryActor::OnTimerFired()
 {
 	if(++TimerCount <= GeometryData.MaxTimerCount)
 	{
-		SetColor(FLinearColor::MakeRandomColor());
+		const FLinearColor NewColor = FLinearColor::MakeRandomColor(); 
+		SetColor(NewColor);
+		OnColorChanged.Broadcast(NewColor, GetName());
 		return;
 	}
 
 	GetWorldTimerManager().ClearTimer(TimerHandle);
+	OnTimerFinished.Broadcast(this);
 }
 
 // Called every frame

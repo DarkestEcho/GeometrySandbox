@@ -3,6 +3,8 @@
 
 #include "GeometryHubActor.h"
 
+DEFINE_LOG_CATEGORY_STATIC(LogGeometryHub, All, All);
+
 // Sets default values
 AGeometryHubActor::AGeometryHubActor()
 {
@@ -32,7 +34,28 @@ void AGeometryHubActor::SpawnGeometryActors()
 			Payload.GeometryClass, Payload.InitialTransform))
 		{
 			GeometryActor->SetGeometryData(Payload.Data);
+			GeometryActor->OnColorChanged.AddDynamic(this, &AGeometryHubActor::OnColorChanged);
+			GeometryActor->OnTimerFinished.AddUObject(this, &AGeometryHubActor::OnTimerFinished);
 			GeometryActor->FinishSpawning(Payload.InitialTransform);
 		}
+	}
+}
+
+void AGeometryHubActor::OnColorChanged(const FLinearColor& Color, const FString& Name)
+{
+	UE_LOG(LogGeometryHub, Display, TEXT("Actor name: %s | Color: %s"), *Name, *Color.ToString())
+}
+
+void AGeometryHubActor::OnTimerFinished(AActor* Actor)
+{
+	if(!Actor)
+	{
+		return;
+	}
+	UE_LOG(LogGeometryHub, Display, TEXT("Timer finished: %s"), *Actor->GetName());
+
+	if(ABaseGeometryActor* GeometryActor = Cast<ABaseGeometryActor>(Actor))
+	{
+		GeometryActor->Destroy();
 	}
 }

@@ -45,4 +45,7 @@ public:
 private:
 	void SpawnGeometryActors();
 
+	UFUNCTION()
+	void OnColorChanged(const FLinearColor& Color, const FString& Name);
+	void OnTimerFinished(AActor* Actor);
 };
